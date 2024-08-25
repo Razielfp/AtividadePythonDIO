@@ -1,0 +1,65 @@
+print("Seja Bem-Vindo ao Banco do Norte!!")
+
+menu = """
+
+[d] depositar
+[s] sacar
+[e] extrato
+[q] sair
+
+=> """
+
+saldo = 0
+limite = 10000
+extrato = ""
+saques = 0
+SAQUE_LIMITE = 5
+
+while True:
+
+    opcao = input(menu)
+
+    if opcao == "d":
+        valor = float(input("Quanto deseja depositar: "))
+
+        if valor > 0: 
+            saldo+= valor
+            extrato += f"Depósito: R$ {valor:.2f}\n"
+
+        else:
+            print("ERROR! O valor precisa ser maior do que ZERO!!")
+
+    elif opcao == "s":
+        valor = float(input("Quanto deseja sacar: "))
+        saldo_insuficiente = valor > saldo
+        limite_insuficiente = valor > limite
+        saques_insuficente = saques >= SAQUE_LIMITE
+    
+        if saldo_insuficiente:
+            print("ERROR! Saldo insuficiente.")
+
+        elif limite_insuficiente:
+            print("ERROR! Limite insuficiente.")
+
+        elif saques_insuficente:
+            print("ERROR! Você não possui mais saques disponíveis.")
+
+        elif valor > 0:
+            saldo -= valor
+            extrato += f"Saque: R$ {valor:.2f}\n"
+            saques += 1
+
+        else:
+            print("ERROR! O valor informado é inválido.")
+
+    elif opcao == "e":
+        print("\n================ EXTRATO ================")
+        print("Não foram realizadas movimentações." if not extrato else extrato)
+        print(f"\nSaldo: R$ {saldo:.2f}")
+        print("==========================================")
+
+    elif opcao == "q":
+        break
+
+    else:
+        print("ERROR, por favor selecione novamente uma opção.")
